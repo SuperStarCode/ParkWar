@@ -1,17 +1,34 @@
 package namvn.project2.parkwar.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "PhanHois")
 public class PhanHoi {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private  Integer MaPh;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer MaPh;
+    @NotNull
+    @Size(max = 200)
     private String Mota;
     private int Rank;
+
+    public PhanHoi() {
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "taikhoan_id", nullable = false,foreignKey = @ForeignKey(name = "PHANHOI_TAIKHOAN_FK"))
+    private TaiKhoan taiKhoan;
+
+    public TaiKhoan getTaiKhoan() {
+        return taiKhoan;
+    }
+
+    public void setTaiKhoan(TaiKhoan taiKhoan) {
+        this.taiKhoan = taiKhoan;
+    }
 
     public String getMota() {
         return Mota;
@@ -29,15 +46,9 @@ public class PhanHoi {
         Rank = rank;
     }
 
-    public Integer getMatk() {
-        return Matk;
-    }
 
-    public void setMatk(Integer matk) {
-        Matk = matk;
-    }
 
-    private Integer Matk;
+
 
     public Integer getMaPh() {
         return MaPh;

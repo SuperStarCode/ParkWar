@@ -1,17 +1,69 @@
 package namvn.project2.parkwar.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "TaiKhoans")
 public class TaiKhoan {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer MaTk;
-    private String Tentk, MatKhau, Gmail, Sdt, Level, Capbac, Trangbi;
+    @NotNull
+    @Size(max = 20)
+    @Column(unique = true)
+    private String Tentk, MatKhau;
+    @NotNull
+    @Size(max = 30)
+    private String Gmail, Sdt, Level, Capbac;
+    @NotNull
+    @Size(max = 30)
+    private String Trangbi;
+    @OneToMany(mappedBy = "taiKhoan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<PhanHoi> phanHois = new HashSet<>();
+
+    public NhiemVu getNhiemVu() {
+        return nhiemVu;
+    }
+
+    public void setNhiemVu(NhiemVu nhiemVu) {
+        this.nhiemVu = nhiemVu;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "taiKhoan")
+    private NhiemVu nhiemVu;
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "taiKhoan")
+    private Phong phong;
+
+    public TaiKhoan() {
+    }
+
+    public Set<PhanHoi> getPhanhois() {
+        return phanHois;
+    }
+
+
+    public void setPhanhois(Set<PhanHoi> phanhoiss) {
+        phanHois = phanhoiss;
+    }
+
+    public TaiKhoan(String tentk, String matKhau) {
+        Tentk = tentk;
+        MatKhau = matKhau;
+    }
+
+    public Integer getMaTk() {
+        return MaTk;
+    }
+
     public void setMaTk(Integer maTk) {
         MaTk = maTk;
     }
@@ -72,3 +124,4 @@ public class TaiKhoan {
         Trangbi = trangbi;
     }
 }
+

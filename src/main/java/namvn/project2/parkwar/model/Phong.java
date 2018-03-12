@@ -1,16 +1,21 @@
 package namvn.project2.parkwar.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "Phongs")
 public class Phong {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer MaPhong;
-
+    @NotNull
+    @Size(max = 30)
+    private String TenPhong,TenMap;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "taikhoan_id", nullable = false,foreignKey = @ForeignKey(name = "PHONG_TAIKHOAN_FK"))
+    private TaiKhoan taiKhoan;
     public Integer getMaPhong() {
         return MaPhong;
     }
@@ -20,11 +25,11 @@ public class Phong {
     }
 
     public String getTePhong() {
-        return TePhong;
+        return TenPhong;
     }
 
     public void setTePhong(String tePhong) {
-        TePhong = tePhong;
+        TenPhong = tePhong;
     }
 
     public String getTenMap() {
@@ -35,14 +40,6 @@ public class Phong {
         TenMap = tenMap;
     }
 
-    public Integer getMatk() {
-        return Matk;
-    }
 
-    public void setMatk(Integer matk) {
-        Matk = matk;
-    }
 
-    private String TePhong,TenMap;
-    private Integer Matk;
 }

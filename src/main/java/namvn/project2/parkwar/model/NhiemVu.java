@@ -1,19 +1,22 @@
 package namvn.project2.parkwar.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "NhiemVus")
 public class NhiemVu {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer MaNv;
+    @NotNull
+    @Size(max = 50)
     private String Mota,Thoigian;
     private int Vang,Bve,Lxa,Hsinh;
-    private Integer MaTk;
-
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "taikhoan_id", nullable = false,foreignKey = @ForeignKey(name = "NHIEMVU_TAIKHOAN_FK"))
+    private TaiKhoan taiKhoan;
 
 
     public String getMota() {
@@ -72,11 +75,5 @@ public class NhiemVu {
         MaNv = maNv;
     }
 
-    public Integer getMaTk() {
-        return MaTk;
-    }
 
-    public void setMaTk(Integer maTk) {
-        MaTk = maTk;
-    }
 }

@@ -16,6 +16,10 @@ public class Phong {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "taikhoan_id", nullable = false,foreignKey = @ForeignKey(name = "PHONG_TAIKHOAN_FK"))
     private TaiKhoan taiKhoan;
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "phong")
+    private Phe phe;
     public Integer getMaPhong() {
         return MaPhong;
     }

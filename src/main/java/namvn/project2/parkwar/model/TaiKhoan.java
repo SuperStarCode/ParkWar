@@ -1,14 +1,16 @@
 package namvn.project2.parkwar.model;
 
 import javax.persistence.*;
+import javax.persistence.metamodel.ManagedType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "TaiKhoans")
-public class TaiKhoan {
+public class TaiKhoan implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,7 +44,10 @@ public class TaiKhoan {
             cascade = CascadeType.ALL,
             mappedBy = "taiKhoan")
     private Phong phong;
-
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "taiKhoan")
+    private Phe phe;
     public TaiKhoan() {
     }
 

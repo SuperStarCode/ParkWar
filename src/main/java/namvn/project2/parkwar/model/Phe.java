@@ -1,18 +1,21 @@
 package namvn.project2.parkwar.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Phes")
 public class Phe {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer MaPhe;
     private String TenPhe;
-    private Integer MaTk,MaPhong;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "taikhoan_id", nullable = false,foreignKey = @ForeignKey(name = "PHE_TAIKHOAN_FK"))
+    private TaiKhoan taiKhoan;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "phong_id", nullable = false,foreignKey = @ForeignKey(name = "PHE_PHONG_FK"))
+    private Phong phong;
     public Integer getMaPhe() {
         return MaPhe;
     }
@@ -29,19 +32,5 @@ public class Phe {
         TenPhe = tenPhe;
     }
 
-    public Integer getMaTk() {
-        return MaTk;
-    }
 
-    public void setMaTk(Integer maTk) {
-        MaTk = maTk;
-    }
-
-    public Integer getMaPhong() {
-        return MaPhong;
-    }
-
-    public void setMaPhong(Integer maPhong) {
-        MaPhong = maPhong;
-    }
 }

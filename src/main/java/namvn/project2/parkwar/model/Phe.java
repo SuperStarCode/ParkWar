@@ -3,7 +3,7 @@ package namvn.project2.parkwar.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Phes")
+@Table(name = "phes")
 public class Phe {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

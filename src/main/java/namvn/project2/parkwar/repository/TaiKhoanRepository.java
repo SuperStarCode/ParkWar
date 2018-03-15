@@ -13,6 +13,6 @@ import java.util.Optional;
 @Repository
 public interface TaiKhoanRepository extends JpaRepository<TaiKhoan,Long>{
     @Query(value = "select * from taikhoans b where b.tentk=?1", nativeQuery = true)
-    public List<TaiKhoan> findByTentk(String tentk);
+    TaiKhoan findByTentk(String tentk);
     // public TaiKhoan findBy(String name);
 }

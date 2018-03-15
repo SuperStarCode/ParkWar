@@ -35,8 +35,8 @@ public class TaiKhoanController {
     @GetMapping(path = "/login")
     public @ResponseBody
     String checkLogin(@RequestParam String name) {
-        List<TaiKhoan> tkTemp = taiKhoanRepository.findByTentk(name);
-        if (tkTemp != null)
+        TaiKhoan tkTemp = taiKhoanRepository.findByTentk(name);
+        if (tkTemp!=null)
             return "Success";
         else
             return "No success";
